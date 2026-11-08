@@ -35,6 +35,12 @@ class ViewerTests(unittest.TestCase):
             self.assertEqual(before['MAC_FN']['keys'][15]['effective'], 'AC_TOGG')
             self.assertEqual(before['MAC_FN']['keys'][0]['effective'], 'KC_ESC')
             self.assertTrue(before['MAC_FN']['keys'][0]['inherited'])
+            self.assertEqual(before['MAC_FN']['keys'][17]['effective'], 'KC_F13')
+            self.assertEqual(before['WIN_FN']['keys'][18]['effective'], 'KC_F14')
+            self.assertNotIn('MAC_GAME', before)
+            self.assertEqual(before['MAC_FN']['encoder'], [['TURBO_LEFT', 'TURBO_RIGHT']])
+            self.assertEqual(before['WIN_FN']['encoder'], [['TURBO_LEFT', 'TURBO_RIGHT']])
+            self.assertEqual(len(before), 4)
             # Changing a base mapping must update both base and inherited Fn output.
             path.write_text(path.read_text().replace('KC_ESC,', 'KC_A,', 1))
             generate(path, keyboard, output)

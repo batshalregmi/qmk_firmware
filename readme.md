@@ -18,6 +18,12 @@ Current source mappings for the V6 ANSI with knob. Saved VIA remaps may differ.
 
 ![Windows Fn layer](tools/layer_viewer/output/win_fn.png)
 
+**Autoclicker configuration:** hold Fn and turn the knob. Turn toward the left
+for left-click speeds or toward the right for right-click speeds, with a neutral
+off position between them. Blue/purple function-row bars show the selected mode
+and speed. Turning the knob only configures it; use the autoclicker key to run it.
+
+
 [All layers in one image](tools/layer_viewer/output/all_layers.png) ·
 [Regenerate the images](tools/layer_viewer/README.md)
 

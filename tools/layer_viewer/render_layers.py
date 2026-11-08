@@ -16,6 +16,7 @@ DISABLED = {'XXXXXXX', 'KC_NO'}
 LABELS = {
     'KC_ESC': 'Esc', 'KC_BRID': 'Screen\nlight −', 'KC_BRIU': 'Screen\nlight +',
     'KC_MPRV': 'Prev.\ntrack', 'KC_MPLY': 'Play /\npause', 'KC_MNXT': 'Next\ntrack',
+    'TURBO_LEFT': 'Dial toward left click', 'TURBO_RIGHT': 'Dial toward right click',
     'KC_MCTL': 'Mission\nControl', 'KC_LPAD': 'Launchpad',
     'KC_MUTE': 'Mute', 'KC_VOLD': 'Volume −', 'KC_VOLU': 'Volume +',
     'KC_PSCR': 'Print\nScreen', 'TURBO': 'Auto\nclicker', 'MOUSE_TURBO_CLICK': 'Auto\nclicker',
@@ -173,11 +174,15 @@ def generate(keymap, keyboard, output):
             raise ValueError(f'{name}: key count/layout does not match keyboard.json')
     images, manifest = [], {}
     output.mkdir(parents=True, exist_ok=True)
-    for name, (layout, codes) in layers.items():
-        positions = layouts[layout]['layout']
+    views = {}
+    for name in layers:
         base = name.removesuffix('_FN') + '_BASE' if name.endswith('_FN') else name
-        if any(c in TRANSPARENT for c in codes) and base not in layers:
-            raise ValueError(f'Cannot resolve transparent keys for {name}; expected {base}')
+        views[name] = [name, base] if base != name else [name]
+    for name, stack in views.items():
+        layout, codes = layers[stack[0]]
+        positions = layouts[layout]['layout']
+        if any(layer not in layers for layer in stack):
+            raise ValueError(f'Cannot resolve layer stack for {name}: {stack}')
         unit, margin, top = 80, 32, 108
         width = round(max(p['x']+p.get('w',1) for p in positions)*unit)+2*margin
         height = round(max(p['y']+p.get('h',1) for p in positions)*unit)+top+95
@@ -188,7 +193,7 @@ def generate(keymap, keyboard, output):
         resolved = []
         for i, (code, pos) in enumerate(zip(codes, positions)):
             inherited = code in TRANSPARENT
-            effective = layers[base][1][i] if inherited and base != name else code
+            effective = next((layers[layer][1][i] for layer in stack if layers[layer][1][i] not in TRANSPARENT), 'KC_NO')
             description = label(effective, name, aliases)
             fill, border, ink = '#273647', '#526477', '#eef4fa'
             if effective in DISABLED:
@@ -205,20 +210,20 @@ def generate(keymap, keyboard, output):
             centered(draw,box,description,ink)
             resolved.append({'position':i, 'code':code, 'effective':effective, 'label':description, 'inherited':inherited})
         knob = []
-        for i, pair in enumerate(encoders.get(name, [])):
-            pair = [encoders.get(base, [pair])[i][j] if c in TRANSPARENT else c for j,c in enumerate(pair)]
+        for i, pair in enumerate(encoders.get(stack[0], [])):
+            pair = [next((encoders[layer][i][j] for layer in stack if layer in encoders and encoders[layer][i][j] not in TRANSPARENT), 'KC_NO') for j in range(2)]
             knob.append(f'Knob {i+1}: counterclockwise = {label(pair[0],name,aliases).replace(chr(10)," ")}   |   clockwise = {label(pair[1],name,aliases).replace(chr(10)," ")}')
         draw.text((margin,height-75),'  /  '.join(knob),font=font(19),fill='#e1ebf6')
         draw.text((margin,height-41),'Knob press is the isolated key left of Print Screen. Source defaults only; saved VIA remaps are not read.',font=font(15),fill='#a9bacd')
         img.save(output/f'{name.lower()}.png'); images.append(img)
-        manifest[name] = {'keys':resolved,'encoder':encoders.get(name,[])}
+        manifest[name] = {'keys':resolved,'encoder':encoders.get(stack[0],[]), 'stack':stack}
     overview = Image.new('RGB',(max(im.width for im in images),sum(im.height for im in images)+20*(len(images)-1)),'#101720')
     y=0
     for im in images:
         overview.paste(im,(0,y)); y+=im.height+20
     overview.save(output/'all_layers.png')
     (output/'layers.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    print(f'Rendered {len(layers)} layers → {output}',flush=True)
+    print(f'Rendered {len(views)} layer views → {output}',flush=True)
 
 
 def main():

@@ -47,6 +47,6 @@ Stop with Ctrl+C. Reopen/reload an image if your image viewer caches it.
 This is a small source viewer for the current keymap, not a C compiler. It supports
 named `LAYOUT*` initializers, nested macro arguments, and `ENCODER_CCW_CW` mappings.
 It does not evaluate conditional compilation, included C definitions, or arbitrary
-runtime/multi-layer combinations. Duplicate conditional layer definitions are
+runtime/multi-layer combinations beyond the OS base/Fn pairs. Duplicate conditional layer definitions are
 rejected. Built-in action labels describe default keycode behavior, not arbitrary
 custom callbacks. Use `--keymap`, `--keyboard`, and `--output` to override paths.
