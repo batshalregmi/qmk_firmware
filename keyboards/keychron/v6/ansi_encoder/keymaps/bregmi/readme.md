@@ -11,6 +11,9 @@ Ported from origin/my_stuff (57bb3a72e6) to QMK 0.34.7
   and Fn activates MAC_FN. The top row provides brightness/media controls;
   Fn accesses F1–F12. F3 opens Mission Control; F4 sends Launchpad.
 - Windows mode retains its custom layout with F1–F12 directly available.
+- NKRO defaults to on when EEPROM settings are initialized. Fn+N toggles it
+  in either mode and saves that choice across reconnects. Existing EEPROM
+  settings take precedence until reset or changed with the toggle.
 - Turbo click remains on the key between Print Screen and the lighting key.
   Hold for repeated left clicks; double tap to latch; tap again to stop.
   The original 16 ms click period is retained via MOUSE_TURBO_CLICK_PERIOD.

@@ -4,3 +4,6 @@
 
 // Preserve the original autoclicker rate (62.5 clicks per second).
 #define MOUSE_TURBO_CLICK_PERIOD 16
+
+// Default to NKRO when EEPROM settings are initialized; Fn+N still toggles it.
+#define NKRO_DEFAULT_ON true
