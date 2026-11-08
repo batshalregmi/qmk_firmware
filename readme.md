@@ -1,3 +1,31 @@
+# Keychron V6 — custom layers
+
+Current source mappings for the V6 ANSI with knob. Saved VIA remaps may differ.
+
+### Mac base
+
+![Mac base layer](tools/layer_viewer/output/mac_base.png)
+
+### Mac Fn
+
+![Mac Fn layer](tools/layer_viewer/output/mac_fn.png)
+
+### Windows base
+
+![Windows base layer](tools/layer_viewer/output/win_base.png)
+
+### Windows Fn
+
+![Windows Fn layer](tools/layer_viewer/output/win_fn.png)
+
+[All layers in one image](tools/layer_viewer/output/all_layers.png) ·
+[Regenerate the images](tools/layer_viewer/README.md)
+
+Images use fixed paths: regenerate and commit the PNGs after changing the keymap;
+these README links do not need to change.
+
+---
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
