@@ -9,7 +9,7 @@ Ported from origin/my_stuff (57bb3a72e6) to QMK 0.34.7
   encoder mappings. F13–F16 are available on both base layers.
 - Mac mode restores Option/Command positions, with Command next to Space,
   and Fn activates MAC_FN. The top row provides brightness/media controls;
-  Fn accesses F1–F12. F3/F4 positions are unassigned without Fn, as upstream.
+  Fn accesses F1–F12. F3 opens Mission Control; F4 sends Launchpad.
 - Windows mode retains its custom layout with F1–F12 directly available.
 - Turbo click remains on the key between Print Screen and the lighting key.
   Hold for repeated left clicks; double tap to latch; tap again to stop.

@@ -16,6 +16,7 @@ DISABLED = {'XXXXXXX', 'KC_NO'}
 LABELS = {
     'KC_ESC': 'Esc', 'KC_BRID': 'Screen\nlight −', 'KC_BRIU': 'Screen\nlight +',
     'KC_MPRV': 'Prev.\ntrack', 'KC_MPLY': 'Play /\npause', 'KC_MNXT': 'Next\ntrack',
+    'KC_MCTL': 'Mission\nControl', 'KC_LPAD': 'Launchpad',
     'KC_MUTE': 'Mute', 'KC_VOLD': 'Volume −', 'KC_VOLU': 'Volume +',
     'KC_PSCR': 'Print\nScreen', 'TURBO': 'Auto\nclicker', 'MOUSE_TURBO_CLICK': 'Auto\nclicker',
     'AC_TOGG': 'Auto\ncorrect\ntoggle', 'KC_SLEP': 'Sleep',
